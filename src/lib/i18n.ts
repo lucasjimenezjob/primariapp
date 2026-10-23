@@ -1,0 +1,58 @@
+import type { Lang } from '../types';
+
+// Textos de la interfaz durante la sesión: en inglés para Science e Inglés, en español para el resto.
+const STR = {
+  es: {
+    check: 'Comprobar',
+    next: 'Siguiente',
+    finish: 'Ver resultados',
+    correct: '¡Correcto!',
+    almost: '¡Casi! Se escribe así:',
+    wrong: '¡Uy! La respuesta era:',
+    hint: 'Pista',
+    hintWaiting: 'Pista',
+    moreHint: 'Otra pista',
+    hintTitle: 'Pista de',
+    hintEliminated: 'He quitado respuestas que no son. ¡Ya solo quedan dos!',
+    hintPattern: 'Así empieza:',
+    hintPair: 'Te he resuelto una pareja. ¡Las demás son tuyas!',
+    hintUsed: 'con pista',
+    placeholder: 'Escribe tu respuesta…',
+    chooseOne: 'Elige una respuesta',
+    matchHelp: 'Toca un elemento de cada columna para emparejarlos',
+    matchDone: '¡Parejas completas!',
+    mistakes: 'fallos',
+    curiosity: '¿Sabías que…?',
+    write: 'Escribe',
+    quiz: 'Test',
+    match: 'Emparejar',
+  },
+  en: {
+    check: 'Check',
+    next: 'Next',
+    finish: 'See results',
+    correct: 'Correct!',
+    almost: 'Almost! It is spelt:',
+    wrong: 'Oops! The answer was:',
+    hint: 'Hint',
+    hintWaiting: 'Hint',
+    moreHint: 'Another hint',
+    hintTitle: 'Hint from',
+    hintEliminated: 'I removed some wrong answers. Only two are left!',
+    hintPattern: 'It starts like this:',
+    hintPair: 'I matched one pair for you. The rest are yours!',
+    hintUsed: 'with hint',
+    placeholder: 'Type your answer…',
+    chooseOne: 'Choose an answer',
+    matchHelp: 'Tap one item from each column to match them',
+    matchDone: 'All pairs matched!',
+    mistakes: 'mistakes',
+    curiosity: 'Did you know…?',
+    write: 'Write',
+    quiz: 'Quiz',
+    match: 'Match',
+  },
+} as const;
+
+export type Strings = { [K in keyof (typeof STR)['es']]: string };
+export const t = (lang: Lang): Strings => STR[lang];
