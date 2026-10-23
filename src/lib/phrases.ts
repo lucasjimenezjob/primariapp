@@ -24,6 +24,9 @@ export function say(situation: Situation, lang: Lang, vars: { nombre: string; pr
   return { speaker: p.speaker, text: fill(p.text, vars) };
 }
 
+/** Probabilidad de que aparezca un dato curioso en un momento dado (para no saturar). */
+export const CURIOSITY_CHANCE = 0.33;
+
 const seenCuriosities: string[] = [];
 
 export function curiosityFor(subject: SubjectId): string {

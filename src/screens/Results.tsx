@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import type { SubjectId } from '../types';
 import { MASCOTS, subjectById, type ProfileInfo } from '../data/subjects';
 import { levelInfo, type ProfileState, type SessionSummary } from '../lib/game';
-import { curiosityFor, say, speakerName } from '../lib/phrases';
+import { CURIOSITY_CHANCE, curiosityFor, say, speakerName } from '../lib/phrases';
 import { Mascot } from '../components/Mascot';
 import { Parent } from '../components/Parents';
 import { Bubble, Confetti, CountUp, ProgressBar } from '../components/ui';
@@ -30,7 +30,8 @@ export function Results({ profile, state, summary, subject, onAgain, onHome }: P
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const levelPhrase = useMemo(() => (levelUp ? say('levelUp', sub.lang, vars) : null), []); // eslint-disable-line react-hooks/exhaustive-deps
-  const curiosity = useMemo(() => curiosityFor(subject), [subject]);
+  // Un dato curioso solo a veces, para que no se sature.
+  const curiosity = useMemo(() => (Math.random() < CURIOSITY_CHANCE ? curiosityFor(subject) : null), [subject]);
   const lvl = levelInfo(state.xp);
   const stars = summary.perfect ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.4 ? 1 : 0;
 
@@ -113,10 +114,12 @@ export function Results({ profile, state, summary, subject, onAgain, onHome }: P
         </section>
       )}
 
-      <div className="curiosity curiosity-big">
-        <strong>✨ {sub.lang === 'en' ? 'Did you know…?' : '¿Sabías que…?'}</strong>
-        <p>{curiosity}</p>
-      </div>
+      {curiosity && (
+        <div className="curiosity curiosity-big">
+          <strong>✨ {sub.lang === 'en' ? 'Did you know…?' : '¿Sabías que…?'}</strong>
+          <p>{curiosity}</p>
+        </div>
+      )}
 
       <div className="results-actions">
         <button className="btn btn-big" onClick={onAgain}>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PlayCard } from '../types';
 import { MASCOTS, subjectById, type ProfileInfo } from '../data/subjects';
 import { t } from '../lib/i18n';
-import { curiosityFor, say, speakerName, type SaidPhrase } from '../lib/phrases';
+import { CURIOSITY_CHANCE, curiosityFor, say, speakerName, type SaidPhrase } from '../lib/phrases';
 import { mascotTier, type AnswerLog, type ProfileState } from '../lib/game';
 import { isFixedKey } from '../lib/session';
 import { answerPattern, firstHint, HINT_DELAY_S, hintOffer, optionsToEliminate, xpWithHints } from '../lib/hints';
@@ -92,7 +92,7 @@ export function Session({ profile, state, cards, onQuit, onFinish }: Props) {
       } else {
         setPhrase(Math.random() < 0.7 ? say('correct', lang, vars) : null);
       }
-      setCuriosity(Math.random() < 0.15 ? curiosityFor(pc.subject) : null);
+      setCuriosity(Math.random() < CURIOSITY_CHANCE ? curiosityFor(pc.subject) : null);
     } else {
       const run = wrongRun + 1;
       setLastXp(0);
@@ -108,7 +108,7 @@ export function Session({ profile, state, cards, onQuit, onFinish }: Props) {
         setWrongRun(run);
         setPhrase(say('wrong', lang, vars));
       }
-      setCuriosity(Math.random() < 0.35 ? curiosityFor(pc.subject) : null);
+      setCuriosity(Math.random() < CURIOSITY_CHANCE ? curiosityFor(pc.subject) : null);
     }
   };
 
